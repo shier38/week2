@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.weigengchen.mapper.JianMapper">
+  	<select id="list" resultType="com.weigengchen.entity.Jian">
+  		select * from jian
+  		<where>
+  			<if test="id!=null and id>0">
+  				id = #{id}
+  			</if>
+  			<if test="name!=null and name!=''">
+  				and name like concat('%',#{name},'%')
+  			</if>
+  			<if test="thing!=null and thing!=''">
+  				and thing like concat('%',#{thing},'%')
+  			</if>
+  			<if test="gname!=null and gname!=''">
+  				and gname like concat('%',#{gname},'%')
+  			</if>
+  			<if test="product!=null and product!=''">
+  				and product like concat('%',#{product},'%')
+  			</if>
+  			<if test="address!=null and address!=''">
+  				and address like concat('%',#{address},'%')
+  			</if>
+  			<if test="p1!=null and p1>0">
+  				and price >= #{p1}
+  			</if>
+  			<if test="p2!=null and p2>0">
+  				and price &lt;= #{p2}
+  			</if>
+  			<if test="d1!=null and d1!=''">
+  				and startdate >= #{d1}
+  			</if>
+  			<if test="d2!=null and d2!=''">
+  				and startdate &lt;= #{d2}
+  			</if>
+  			<if test="nd1!=null and nd1!=''">
+  				and showdate >= #{nd1}
+  			</if>
+  			<if test="nd2!=null and nd2!=''">
+  				and showdate &lt;= #{nd2}
+  			</if>
+  			<if test="state!=null and state!=''">
+  				and state =#{state}
+  			</if>
+  			<if test="beizhu!=null and beizhu!=''">
+  				and beizhu like concat('%',#{beizhu},'%')
+  			</if>
+  		</where>
+  	</select>
+  	
+  	<insert id="add">
+  		insert into jian values
+  		<foreach collection="list" separator="," item="j">
+  			(#{j.id},#{j.name},#{j.thing},#{j.gname},#{j.product},#{j.address},#{j.price},#{j.startdate},#{j.showdate},#{j.state},#{j.beizhu})
+  		</foreach>
+  	</insert>
+  </mapper>

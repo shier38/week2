@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+
+<!--  配置要扫描的包  -->
+<context:component-scan base-package="com.weigengchen.controller"></context:component-scan>
+
+<!-- 开启注解 -->
+<mvc:annotation-driven></mvc:annotation-driven>
+
+<!-- 配置试图解析器 -->
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<!-- 配置前缀和 后缀 -->
+	<property name="prefix" value="/WEB-INF/view/"></property>
+	<property name="suffix" value=".jsp"></property>
+</bean>
+
+<!-- 上传下载配置 -->	
+<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<property name="defaultEncoding" value="utf-8"></property>
+	<property name="maxUploadSize" value="10485760000"></property>
+</bean> 
+
+<!-- 不拦截静态资源 -->
+<mvc:default-servlet-handler/>
+<!-- MVC注解驱动 -->
+<mvc:annotation-driven></mvc:annotation-driven>
+<!-- <mvc:interceptors>
+	<mvc:interceptor>
+		<mvc:mapping path="/**"/>
+		<mvc:exclude-mapping path="/login"/>
+		<mvc:exclude-mapping path="/checkName"/>
+		<bean class="com.bawei.utils.LoginInterceptor"></bean>
+	</mvc:interceptor>
+</mvc:interceptors> -->
+
+  <!-- json格式支持配置 fastjosn  如果用jackson不用此配置   -->
+<!--      <mvc:annotation-driven>
+			<mvc:message-converters>
+			<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>application/json;charset=utf-8</value>
+					</list>
+				</property>
+			</bean>
+	    </mvc:message-converters>
+	</mvc:annotation-driven>  -->
+
+<!-- 异常配置 -->
+<!--
+        <bean  class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+             <property name="exceptionAttribute" value="ex"></property>
+            <property name="exceptionMappings">
+              <props>
+                  <prop key="java.lang.ArrayIndexOutOfBoundsException" >err</prop>
+                  <prop key="java.lang.NullPointerException" >err2</prop>
+              </props>
+            </property>
+         </bean> 
+-->
+<!--
+  <mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>
+<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+    <property name="converters">
+      <list>
+         <bean class="com.bw.utils.DateConverter"></bean>
+      </list>
+    </property>
+</bean>  
+-->
+
+</beans>
